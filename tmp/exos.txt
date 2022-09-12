@@ -1,0 +1,26 @@
+*** Exo 1 **
+Dans un contrôleur "ExoController".
+
+Créer une route exos/exo1
+Cette route devra récupérer un paramètre "num" dans l'url
+La réponse retournée au client sera la valeur de "num" au carrée
+Exemple: si num==4, réponse => 16
+
+
+*** Exo 2 **
+Dans un contrôleur "ExoController".
+
+Créer une route exos/exo2
+Si le User-Agent de la requête est Curl ou Postman, le serveur
+devra répondre: "Je ne parle pas aux inconnus"
+
+
+*** Exo 3 **
+Dans un contrôleur "ExoController".
+
+Créer une route exos/exo3
+Si la requête est envoyée avec la méthode GET, le serveur retourne un formulaire
+contenant un champ de saisie (permettant de saisir un message quelconque) et un bouton de soumission
+Si la requête est envoyée avec la méthode POST, le serveur récupère la valeur
+associée au paramètre "message" du formulaire et retourne son hash md5.
+Exemple: si message == "hello", réponse => af5597c29467a96523a70787c319f4db

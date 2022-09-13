@@ -40,7 +40,7 @@ Exemple: si entier == 2, réponse:
     2 x 2 = 4
     ...
     2 x 10 = 20
-Les pages html reçu en réponse disposeront toutes d'un lien permettant de revenir au formulaire.
+Les pages html reçues en réponse seront toutes rendues par twig et disposeront d'un lien permettant de revenir au formulaire.
 Elles contiendront également une zone, sous forme d'une barre latérale par exemple, affichant les 10 entiers aléatoires (entre 1 et 100)
 Chacun de ces entiers sera clicable afin d'afficher la table de multiplication du chiffre cliqué.
 
@@ -49,7 +49,9 @@ Chacun de ces entiers sera clicable afin d'afficher la table de multiplication d
 Dans un contrôleur "ExoController".
 
 Créer les routes exos/exo5_form et exos/exo5_process
-La route exo5_form retournera un input permettant de saisir une chaîne quelconque, ainsi qu'un bouton "Hash me".
+La route exo5_form retournera une page web - rendue par twig - contenant:
+- un input permettant de saisir une chaîne quelconque
+- un bouton "Hash me"
 Le clic sur le bouton permettra d'obtenir le md5 de la chaîne saisie par requête ajax sur la route exos/exo5_process.
 Le hash retourné par le serveur devra être dynamiquement placé dans le dom.
 Le serveur refusera de calculer le hash d'une chaîne vide ou de longueur inférieure à 4.

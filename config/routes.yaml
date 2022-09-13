@@ -4,3 +4,11 @@
 demo1:
   path: /demo1
   controller: App\Controller\DemoController::demo1
+
+# demo9:
+#   path: /demo9/{num}
+#   controller: App\Controller\DemoController::demo9
+#   requirements:
+#     num: '\d+'
+#   methods: POST|DELETE
+  

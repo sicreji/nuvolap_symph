@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ title }}</title>
+        <style>
+            .job { color: green }
+        </style>
+    </head>
+    <body>
+        <h1>{{ title }}</h1>
+        <h2>Etudiants</h2>
+        <ul>
+            {% for student in students %}
+
+                {% if student.job == "admin" %}
+                <li class="job">{{ student.name }}</li>
+                {% else %}
+                <li>{{ student.name }}</li>
+                {% endif %}
+
+            {% endfor %}
+        </ul>
+    </body>
+</html>

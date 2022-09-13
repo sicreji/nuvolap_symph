@@ -11,6 +11,12 @@ use \Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DemoController extends AbstractController
 {
+    private $students = [
+        ["name" => "Julie", "job" => "admin"],
+        ["name" => "Jean-Luc", "job" => "dev"],
+        ["name" => "Arnaud", "job" => "dev"]
+    ];
+
     public function demo1(): Response
     {
         //$response = new \Symfony\Component\HttpFoundation\Response();
@@ -98,26 +104,92 @@ class DemoController extends AbstractController
     public function demo6(): Response
     {
         // datasource
-        $students = [
-            ["name" => "Julie", "job" => "admin"],
-            ["name" => "Jean-Luc", "job" => "dev"],
-            ["name" => "Arnaud", "job" => "dev"]
-        ];
+        // $students = [
+        //     ["name" => "Julie", "job" => "admin"],
+        //     ["name" => "Jean-Luc", "job" => "dev"],
+        //     ["name" => "Arnaud", "job" => "dev"]
+        // ];
 
         //return new Response(json_encode($students));
         //return new JsonResponse($students);
-        return $this->json($students);
+        //return $this->json($students);
+        return $this->json($this->students);
+    }
+
+    /**
+     * @Route("/demo_tmp", name="demo_tmp")
+     */
+    public function demo_tmp(Request $req): Response
+    {
+        // récupère la valeur associée à un paramètre posté
+        dd($req->request->get("user"));
+        return new Response("ok");
     }
 
     /**
      * @Route("/demo7", name="demo7")
      */
-    public function demo7(Request $req): Response
+    public function demo7(): Response
     {
-        dd($req->request->get("user"));
+        $res = new Response();
+        $res->headers->set("Content-Type", "application/json");
+        $res->headers->set("X-Token", md5("La terre est ronde"));
+        $res->setStatusCode(Response::HTTP_NOT_FOUND); // 404
+        $res->setContent("Ressource trouvée, bravo !");
+        return $res;
+    }
 
+    /**
+     * @Route("/demo8/{student}", name="demo8")
+     */
+    public function demo8($student): Response
+    {
+        if (strlen($student) > 10) {
+            return new Response("Nom trop long !");
+        }
+        return new Response($student);
+    }
 
-        return new Response("ok");
+    /**
+     * @Route("/demo9/{num}", 
+     *  name="demo9",
+     *  requirements={"num"="\d+"},
+     *  methods={"POST", "DELETE"}
+     * )
+     */
+    public function demo9($num): Response
+    {
+        return new Response($num * $num);
+    }
+
+    /**
+     * @Route("/demo10", name="demo10")
+     */
+    public function demo10(): Response
+    {
+        return $this->render("demo/demo10.html.twig");
+    }
+
+    /**
+     * @Route("/demo11", name="demo11")
+     */
+    public function demo11(): Response
+    {
+        return $this->render("demo/demo11.html.twig", [
+            "title" => "Démo 11",
+            "students" => $this->students
+        ]);
+    }
+
+    /**
+     * @Route("/demo12", name="demo12")
+     */
+    public function demo12(): Response
+    {
+        return $this->render("demo/demo12.html.twig", [
+            "title" => "Démo 12",
+            "students" => $this->students
+        ]);
     }
 
 

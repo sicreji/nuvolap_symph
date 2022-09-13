@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+
+<p>
+    <a href="{{ url('demo12') }}">Tous les étudiants</a>
+</p>
+
+<h1>{{ title }}</h1>
+
+<h2>{{ student.name }}</h2>
+
+{% endblock %}

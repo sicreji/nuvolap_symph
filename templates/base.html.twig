@@ -9,11 +9,11 @@
         <link rel="stylesheet" href="{{ bootstrap }}">
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block css %}{% endblock %}
-        {% block js %}{% endblock %}
+        {% block css %}{% endblock %} 
     </head>
     <body>
         {% block body %}{% endblock %}
+
+        {% block js %}{% endblock %}
     </body>
 </html>

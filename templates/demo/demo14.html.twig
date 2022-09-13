@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+
+<h1>{{ title }}</h1>
+<h2>Proverbes</h2>
+
+{% for proverb in proverbs %}
+
+<p data-lang="{{proverb.lang}}">
+    <span>{{ proverb.getShortBody(len) }}</span>
+    <span>({{ proverb.lang }})</span>
+</p>
+
+{% endfor %}
+
+{% endblock %}

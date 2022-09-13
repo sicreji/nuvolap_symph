@@ -1,11 +1,31 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Ciao !{% endblock %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block css %}
+<style>
+    h1 { text-decoration: underline }
+</style>
+{% endblock %}
+
+{% block js %}
+<script>
+console.log("JS works !");
+document
+    .getElementById("title")
+    .addEventListener("click", () => { console.log('Click triggered') })
+</script>
+{% endblock %}
 
 {% block body %}
 
-<h1>{{ title }}</h1>
+{% include "includes/banner.html.twig" %}
+
+<h1 id="title">{{ title }}</h1>
 <h2 class="demo">Etudiants</h2>
+
+<p>Nombre d'étudiants: {{ students|length }}</p>
+<p>L'étudiant du mois: {{ random(students).name }} </p>
 
 <table class="table table-bordered table-striped">
     <thead>
@@ -17,7 +37,10 @@
     <tbody>
         {% for student in students %}
         <tr>
-            <td>{{ student.name }}</td>
+            <td>
+                {# <a href="/demo13/{{loop.index}}">{{ student.name }}</a> #}
+                <a href="{{ url('demo13', {'id' : loop.index}) }}">{{ student.name }}</a>
+            </td>
             <td>{{ student.job }}</td>
         </tr>
         {% endfor %}

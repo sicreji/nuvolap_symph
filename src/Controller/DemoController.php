@@ -6,8 +6,8 @@ use \Symfony\Component\HttpFoundation\Response;
 use \Symfony\Component\HttpFoundation\JsonResponse;
 use \Symfony\Component\HttpFoundation\Request;
 use \Symfony\Component\Routing\Annotation\Route;
-
 use \Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use \App\Custom\Proverb;
 
 class DemoController extends AbstractController
 {
@@ -192,7 +192,37 @@ class DemoController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/demo13/{id}", name="demo13")
+     */
+    public function demo13($id): Response
+    {
 
+        if ($id > count($this->students)) {
+            return new Response("Requête non valide...");
+        }
+
+        return $this->render("demo/demo13.html.twig", [
+            "title" => "Démo 13",
+            "student" => $this->students[$id - 1]
+        ]);
+    }
+
+    /**
+     * @Route("/demo14", name="demo14")
+     */
+    public function demo14(): Response
+    {
+        $p1 = new Proverb("Pierre qui roule n'amasse pas mousse", "fr");
+        $p2 = new Proverb("Tra il dire e il fare c'è di mezzo il mare", "it");
+        $p3 = new Proverb("Ad astra per aspera", "la");
+
+        return $this->render("demo/demo14.html.twig", [
+            "title" => "Démo 14",
+            "proverbs" => [$p1, $p2, $p3],
+            "len" => 12
+        ]);
+    }
 
 
 }

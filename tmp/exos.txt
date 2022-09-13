@@ -24,3 +24,32 @@ contenant un champ de saisie (permettant de saisir un message quelconque) et un 
 Si la requête est envoyée avec la méthode POST, le serveur récupère la valeur
 associée au paramètre "message" du formulaire et retourne son hash md5.
 Exemple: si message == "hello", réponse => af5597c29467a96523a70787c319f4db
+
+
+*** Exo 4 ***
+Dans un contrôleur "ExoController".
+
+Créer les routes exos/exo4_form et exos/exo4_process
+La route exo4_form ne devra être accessibles que pour les méthodes GET et HEAD
+Elle retournera un formulaire permettant de saisir un entier
+La soumission du formulaire, sur une route exos/exo4_process, accessible uniquement en GET, renverra:
+- une page d'erreur si la valeur fournie n'est pas un entier
+- une page contenant la table de multiplication de 1 à 10 de l'entier fourni
+Exemple: si entier == 2, réponse:
+    2 x 1 = 2
+    2 x 2 = 4
+    ...
+    2 x 10 = 20
+Les pages html reçu en réponse disposeront toutes d'un lien permettant de revenir au formulaire.
+Elles contiendront également une zone, sous forme d'une barre latérale par exemple, affichant les 10 entiers aléatoires (entre 1 et 100)
+Chacun de ces entiers sera clicable afin d'afficher la table de multiplication du chiffre cliqué.
+
+
+*** Exo 5 ***
+Dans un contrôleur "ExoController".
+
+Créer les routes exos/exo5_form et exos/exo5_process
+La route exo5_form retournera un input permettant de saisir une chaîne quelconque, ainsi qu'un bouton "Hash me".
+Le clic sur le bouton permettra d'obtenir le md5 de la chaîne saisie par requête ajax sur la route exos/exo5_process.
+Le hash retourné par le serveur devra être dynamiquement placé dans le dom.
+Le serveur refusera de calculer le hash d'une chaîne vide ou de longueur inférieure à 4.

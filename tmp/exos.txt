@@ -41,7 +41,7 @@ Exemple: si entier == 2, réponse:
     ...
     2 x 10 = 20
 Les pages html reçues en réponse seront toutes rendues par twig et disposeront d'un lien permettant de revenir au formulaire.
-Elles contiendront également une zone, sous forme d'une barre latérale par exemple, affichant les 10 entiers aléatoires (entre 1 et 100)
+Elles contiendront également une zone, sous forme d'une barre latérale par exemple, affichant les 5 entiers aléatoires (entre 1 et 100)
 Chacun de ces entiers sera clicable afin d'afficher la table de multiplication du chiffre cliqué.
 
 
@@ -55,3 +55,13 @@ La route exo5_form retournera une page web - rendue par twig - contenant:
 Le clic sur le bouton permettra d'obtenir le md5 de la chaîne saisie par requête ajax sur la route exos/exo5_process.
 Le hash retourné par le serveur devra être dynamiquement placé dans le dom.
 Le serveur refusera de calculer le hash d'une chaîne vide ou de longueur inférieure à 4.
+
+
+*** Exo 6 ***
+Ajouter à l'application la possiblité d'enregistrer des aliments (ex: banane, beurre, etc.).
+Pour tout aliment, on pourra enregistrer le nombre (en grammes) de lipides, protides, protéines et calories, sur une base de 100 grammes de cet aliment.
+Un aliment devra appartenir à une et une seule catégorie (exemples: Fruit, Viande, Poission, etc.).
+Prévoir des entités distinctes pour l'aliment et la catégorie.
+Prévoir une page permettant d'enregistrer un aliment en base et une page permettant de les lister (affichage par nom d'aliment, ordre alphabétique).
+La page affichant la liste des aliments disposera d'un menu déroulant listant les catégories, la sélection d'une catégorie suivi d'un clic sur un
+bouton "Filtrer" devra produire une requête n'affichant que les aliments de la catégorie sélectionnée.

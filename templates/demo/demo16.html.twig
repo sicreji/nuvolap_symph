@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+
+<h1>{{ title }}</h1>
+<h2>Proverbes</h2>
+
+{% for proverb in proverbs %}
+<p>
+    <span>{{ proverb.body }}</span>
+    <a class="btn btn-danger btn-sm" href="{{ path('demo17', {"proverb_id": proverb.id}) }}">Supprimer</a>
+</p>
+{% endfor %}
+
+{% endblock %}

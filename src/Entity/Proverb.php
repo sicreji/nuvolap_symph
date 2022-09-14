@@ -22,6 +22,11 @@ class Proverb
      */
     private $body;
 
+    /**
+     * @ORM\Column(type="string", length=2, nullable=true)
+     */
+    private $lang;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +40,18 @@ class Proverb
     public function setBody(string $body): self
     {
         $this->body = $body;
+
+        return $this;
+    }
+
+    public function getLang(): ?string
+    {
+        return $this->lang;
+    }
+
+    public function setLang(?string $lang): self
+    {
+        $this->lang = $lang;
 
         return $this;
     }

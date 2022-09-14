@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<h2>Enregistrement d'un proverbe</h3>
+
+<form method="POST">
+    <input type="text" name="body">
+    <select name="lang">
+        <option value="_">Choisir une langue</option>
+        <option value="fr">français</option>
+        <option value="it">italien</option>
+        <option value="la">latin</option>
+    </select>
+    <input type="submit" class="btn btn-sm btn-primary">
+</form>
+
+{% endblock %}

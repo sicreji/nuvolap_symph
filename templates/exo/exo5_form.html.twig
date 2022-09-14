@@ -1,0 +1,44 @@
+<section>
+    <input id="message" type="text">
+    <button id="btnHash">Hash me !</button>
+    <div id="hash"></div>
+    <div id="hash2"></div>
+</section>
+
+<script>
+    console.log("*** Exo 5 ***");
+
+    // DOM references
+    const message = document.getElementById("message");
+    const btnHash = document.getElementById("btnHash");
+    const hash = document.getElementById("hash");
+    const hash2 = document.getElementById("hash2");
+    
+    // Events
+    btnHash.addEventListener("click", async () => {
+        //console.log(message.value);
+        fetch(`/exo5_process?message=${message.value}`)
+            .then(res => res.text())
+            .then(res => hash.innerText = res);
+
+        
+        const options = {
+            method: 'post',
+            body: JSON.stringify({message: message.value}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        
+        /*
+        fetch('/exo5_process2', options)
+            .then(res => res.json())
+            .then(res => hash2.innerText = res.hash);
+        */
+
+        const res = await fetch('/exo5_process2', options);
+        const body = await res.json();
+        hash2.innerText = body.hash;
+
+    })
+</script>

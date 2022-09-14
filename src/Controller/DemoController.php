@@ -7,7 +7,8 @@ use \Symfony\Component\HttpFoundation\JsonResponse;
 use \Symfony\Component\HttpFoundation\Request;
 use \Symfony\Component\Routing\Annotation\Route;
 use \Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use \App\Custom\Proverb;
+use \App\Custom\Proverb as CustomProverb;
+use \App\Entity\Proverb;
 
 class DemoController extends AbstractController
 {
@@ -213,15 +214,76 @@ class DemoController extends AbstractController
      */
     public function demo14(): Response
     {
-        $p1 = new Proverb("Pierre qui roule n'amasse pas mousse", "fr");
-        $p2 = new Proverb("Tra il dire e il fare c'è di mezzo il mare", "it");
-        $p3 = new Proverb("Ad astra per aspera", "la");
+        $p1 = new CustomProverb("Pierre qui roule n'amasse pas mousse", "fr");
+        $p2 = new CustomProverb("Tra il dire e il fare c'è di mezzo il mare", "it");
+        $p3 = new CustomProverb("Ad astra per aspera", "la");
 
         return $this->render("demo/demo14.html.twig", [
             "title" => "Démo 14",
             "proverbs" => [$p1, $p2, $p3],
             "len" => 12
         ]);
+    }
+
+    /**
+     * @Route("/demo15", name="demo15", methods={"GET"})
+     */
+    public function demo15(): Response
+    {
+        return $this->render("demo/demo15.html.twig");
+    }
+
+    /**
+     * @Route("/demo15", name="demo15_post", methods={"POST"})
+     */
+    public function demo15_post(Request $req): Response
+    {
+        $p1 = new Proverb();
+
+        $body = $req->request->get("body");
+        $lang = $req->request->get("lang");
+        
+        $p1->setBody($body);
+
+        if ($lang != "_") {
+            $p1->setLang($lang);
+        }
+        
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($p1);
+        $manager->flush(); // exécute les requêtes sql en attente
+
+        //return new Response("Id du proverbe persisté: " . $p1->getId());
+        return $this->redirectToRoute("demo16");
+    }
+
+    /**
+     * @Route("/demo16", name="demo16")
+     */
+    public function demo16(): Response
+    {
+        $repo = $this->getDoctrine()->getRepository(Proverb::class);
+        $proverbs = $repo->findAll();
+
+        return $this->render("demo/demo16.html.twig", [
+            "proverbs" => $proverbs,
+            "title" => "Démo 16"
+        ]);
+    }
+
+    /**
+     * @Route("/demo17/{proverb_id}/delete", name="demo17")
+     */
+    public function demo17($proverb_id): Response
+    {
+        $repo = $this->getDoctrine()->getRepository(Proverb::class);
+        $proverb = $repo->findOneById($proverb_id);
+        
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($proverb);
+        $manager->flush();
+
+        return $this->redirectToRoute("demo16");
     }
 
 

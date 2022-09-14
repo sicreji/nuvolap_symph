@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{% for training in trainings %}
+
+<p>
+{{ training.title }}
+<br>
+durée : {{ training.duration }} jours
+<br>
+Nombre d'étudiants: {{ training.students|length }}
+</p>
+
+{% if training.students|length > 0 %}
+<ul>
+    {% for student in training.students %}
+    <li>{{ student.firstname }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Aucun étudiant enregistré</p>
+{% endif %}
+
+{% endfor %}
+
+{% endblock %}

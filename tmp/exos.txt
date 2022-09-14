@@ -61,6 +61,7 @@ Le serveur refusera de calculer le hash d'une chaîne vide ou de longueur infér
 Ajouter à l'application la possiblité d'enregistrer des aliments (ex: banane, beurre, etc.).
 Pour tout aliment, on pourra enregistrer le nombre (en grammes) de lipides, protides, protéines et calories, sur une base de 100 grammes de cet aliment.
 Un aliment devra appartenir à une et une seule catégorie (exemples: Fruit, Viande, Poisson, etc.).
+Une catégorie appartiendra à plusieurs aliments.
 Prévoir des entités distinctes pour l'aliment et la catégorie.
 Prévoir une page permettant d'enregistrer un aliment en base et une page permettant de les lister (affichage par nom d'aliment, ordre alphabétique).
 

@@ -7,8 +7,15 @@ use \Symfony\Component\HttpFoundation\JsonResponse;
 use \Symfony\Component\HttpFoundation\Request;
 use \Symfony\Component\Routing\Annotation\Route;
 use \Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use \Symfony\Component\Form\Extension\Core\Type\TextType;
+use \Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use \Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use \Symfony\Component\Form\Extension\Core\Type\HiddenType;
+
 use \App\Custom\Proverb as CustomProverb;
 use \App\Entity\Proverb;
+use \App\Form\ProverbType;
+use \App\Service\CalculatorService;
 
 class DemoController extends AbstractController
 {
@@ -17,6 +24,13 @@ class DemoController extends AbstractController
         ["name" => "Jean-Luc", "job" => "dev"],
         ["name" => "Arnaud", "job" => "dev"]
     ];
+
+    private $calc;
+
+    public function __construct(CalculatorService $calculator)
+    {
+        $this->calc = $calculator;
+    }
 
     public function demo1(): Response
     {
@@ -286,5 +300,101 @@ class DemoController extends AbstractController
         return $this->redirectToRoute("demo16");
     }
 
+    /**
+     * @Route("/demo18", name="demo18")
+     */
+    public function demo18(Request $req): Response
+    {
+        $proverb = new Proverb();
+
+        $choices = [
+            'Choisir une langue' => '_',
+            'français' => 'fr',
+            'italien' => 'it',
+            'latin' => 'la'
+        ];
+
+        /*
+        $form = $this->createFormBuilder($proverb)
+            ->add('body', TextType::class, ['label' => 'Texte'])
+            ->add('lang', ChoiceType::class, ['choices' => $choices])
+            ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
+            ->getForm();
+        */
+        
+        $form = $this->createForm(ProverbType::class, $proverb)
+            ->add('secret', HiddenType::class, ['mapped' => false]);
+
+        // relation entre le formulaire et la requête
+        $form->handleRequest($req);
+
+        if ($form->isSubmitted()) {
+            //dd($form->getData());
+            //dd($proverb);
+            $em = $this->getDoctrine()->getManager();
+
+            if ($proverb->getLang() == '_') {
+                $proverb->setLang(null);
+            }
+
+            $em->persist($proverb);
+            $em->flush();
+
+            return $this->redirectToRoute("demo16");
+        }
+        
+
+        return $this->render("demo/demo18.html.twig", [
+            "form" => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/demo19", name="demo19")
+     */
+    public function demo19(): Response
+    {
+        $calculator = new CalculatorService();
+        return new Response($calculator->square(4));
+    }
+
+    /**
+     * @Route("/demo20/{num2}", name="demo20")
+     */
+    public function demo20(
+        CalculatorService $calculator,
+        Request $req,
+        $num2): Response
+    {
+        return new Response($calculator->square($req->query->get('num')) * $num2);
+    }
+
+    /**
+     * @Route("/demo21", name="demo21")
+     */
+    public function demo21(): Response
+    {
+        //return new Response($this->calc->square(6));
+        return new Response($this->calc->tva(100));
+
+        //$c = new CalculatorService(0.1);
+        //return new Response($c->tva(100));
+    }
+
+    /**
+     * @Route("/demo22", name="demo22")
+     */
+    public function demo22(Request $req): Response
+    {
+        $repo = $this->getDoctrine()->getRepository(Proverb::class);
+        
+        $lang = $req->query->get("lang");
+        
+        //$proverbs = $repo->findByLang('it');
+        //$proverbs = $repo->findByLangDql($lang);
+        $proverbs = $repo->findByLangRaw($lang);
+        
+        dd($proverbs);
+    }
 
 }

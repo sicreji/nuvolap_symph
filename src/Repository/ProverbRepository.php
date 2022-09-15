@@ -39,28 +39,47 @@ class ProverbRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Proverb[] Returns an array of Proverb objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+    * @return Proverb[] Returns an array of Proverb objects
+    */
+   public function findByLang($lang): array
+   {
+       return $this->createQueryBuilder('p')
+           ->andWhere('p.lang = :val')
+           ->setParameter('val', $lang)
+           ->orderBy('p.id', 'ASC')
+           ->setMaxResults(5)
+           ->getQuery()
+           ->getResult()
+       ;
+   }
 
-//    public function findOneBySomeField($value): ?Proverb
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+   public function findByLangDql(string $lang): array
+   {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            'SELECT p FROM \App\Entity\Proverb p
+                WHERE p.lang = :lang
+            '
+        );
+        $query->setParameter('lang', $lang);
+        return $query->getResult();
+   }
+
+   public function findByLangRaw(string $lang): array
+   {
+    $conn = $this->getEntityManager()->getConnection();
+
+    $sql = '
+        SELECT body FROM proverb p
+        WHERE p.lang = :lang
+        ORDER BY p.lang ASC
+    ';
+
+    $stmt = $conn->prepare($sql);
+    $result = $stmt->executeQuery(['lang' => $lang]);
+
+    return $result->fetchAllAssociative();
+   }
+
 }

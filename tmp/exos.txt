@@ -68,3 +68,14 @@ Prévoir une page permettant d'enregistrer un aliment en base et une page permet
 Facultatif.
 La page affichant la liste des aliments disposera d'un menu déroulant listant les catégories, la sélection d'une catégorie suivie d'un clic sur un
 bouton "Filtrer" devra produire une requête n'affichant que les aliments de la catégorie sélectionnée.
+
+
+*** Exo 7 ***
+Créer un "Form Type" personnalisé "MonthType" qui affichera un menu de sélection avec les mois allant de janvier à décembre.
+Ajouter dans le DemoController une route exo7 retournant un template disposant d'un formulaire intégration le MonthType.
+
+
+*** Exo 8 ***
+Créer un service PasswordService proposant une méthode "generate". 
+Cette méthode renverra un password aléatoire (chiffre + lettres) d'une longueur paramètrable.
+Tester l'utilisation de ce service dans ExoController. Permettre sa configuration via le fichier config/services.yaml.

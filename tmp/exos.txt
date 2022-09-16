@@ -79,3 +79,22 @@ Ajouter dans le DemoController une route exo7 retournant un template disposant d
 Créer un service PasswordService proposant une méthode "generate". 
 Cette méthode renverra un password aléatoire (chiffre + lettres) d'une longueur paramètrable.
 Tester l'utilisation de ce service dans ExoController. Permettre sa configuration via le fichier config/services.yaml.
+
+
+*** Exo 9 ***
+Créer un filtre twig "hide" qui renvoie un remplace par des "x" les caractères de la chaîne passée en entrée
+Créer un fitre hash qui renvoie, en fonction de l'argument qui lui est fourni, le hash md5 ou sha256 de la chaîne
+donnée en entrée. Par défaut, md5 sera utilisé.
+Ex: "toto"|hash => f71dbe52628a3f83a77ab494817525c6
+Ex: "toto|hash('sha256') => 31f7a65e315586ac198bd798b6629ce4903d0899476d5741a9f32e2e521b6a66
+
+*** Exo 10 ***
+Créer un NewProverbEvent qui sera émis (dispatched) lorsqu'un proverbe sera enregistré en base
+Créer un souscripteur (subscriber) pour cet événement. 
+Le souscripteur réagira en écrivant sur disque (fichier /tmp/proverbs.log) la date de l'événement ainsi que l'id du proverbe.
+Astuce: vous pouvez utiliser le composant Filesystem (https://symfony.com/doc/current/components/filesystem.htm) pour écrire sur disque.
+
+*** Exo 11 ***
+Créer une commande personnalisée LastProverbsCommand affichant dans la console la liste des derniers
+proverbes enregistrés. Cette commande prendra en paramètre le nombre de proverbes à lister.
+Ex: app:proverb:last 5 => affiche les 5 proverbes les plus récemment enregistrés en base

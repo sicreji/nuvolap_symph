@@ -11,11 +11,14 @@ use \Symfony\Component\Form\Extension\Core\Type\TextType;
 use \Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use \Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use \Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use \Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 use \App\Custom\Proverb as CustomProverb;
 use \App\Entity\Proverb;
 use \App\Form\ProverbType;
 use \App\Service\CalculatorService;
+use \App\Event\TestEvent;
 
 class DemoController extends AbstractController
 {
@@ -276,12 +279,17 @@ class DemoController extends AbstractController
      */
     public function demo16(): Response
     {
+        $session = new Session();
+        $session->start();
+        $user = $session->get('user');
+
         $repo = $this->getDoctrine()->getRepository(Proverb::class);
         $proverbs = $repo->findAll();
 
         return $this->render("demo/demo16.html.twig", [
             "proverbs" => $proverbs,
-            "title" => "Démo 16"
+            "title" => "Démo 16",
+            "connected_user" => $user
         ]);
     }
 
@@ -397,4 +405,46 @@ class DemoController extends AbstractController
         dd($proverbs);
     }
 
+    /**
+     * @Route("/demo23", name="demo23")
+     */
+    public function demo23(Request $req, EventDispatcherInterface $dispatcher): Response
+    {
+        $event = new TestEvent("coucou");
+        $dispatcher->dispatch($event, TestEvent::NAME);
+
+        return $this->render("demo/demo23.html.twig");
+    }
+
+    /**
+     * @Route("/demo24", name="demo24")
+     */
+    public function demo24(Request $req): Response
+    {
+
+        $user = $req->getSession()->get('user');
+
+        if (!$user) {
+            $res = new Response();
+            $res->setStatusCode(401);
+            return $res;
+        }
+
+        return $this->render("demo/demo23.html.twig");
+    }
+
+    /**
+     * @Route("/demo25", name="demo25")
+     */
+    public function demo25(Request $req): Response
+    {
+        // après vérif en base de données => utiliseur connu
+        $session = new Session();
+        $session->start();
+
+        $session->set('user', 'Chris');
+
+        return new Response("User connected"); // cookie injecté dans les entêtes de la réponse
+
+    }
 }

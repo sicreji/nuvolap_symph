@@ -4,8 +4,10 @@
 
 {% block body %}
 
-<h1>{{ title }}</h1>
-<h2>Proverbes</h2>
+<h1>{{ title|uppercase|wrapper|raw }}</h1>
+<h2>Proverbes ({{ proverbs|array_len }})</h2>
+
+<p>{{ lipsum() }}</p>
 
 {% for proverb in proverbs %}
 <p>
@@ -13,5 +15,8 @@
     <a class="btn btn-danger btn-sm" href="{{ path('demo17', {"proverb_id": proverb.id}) }}">Supprimer</a>
 </p>
 {% endfor %}
+
+<div>{{ lipsum(20) }}</div>
+<div>{{ connected_user }}</div>
 
 {% endblock %}

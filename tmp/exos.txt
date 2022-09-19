@@ -30,7 +30,7 @@ Exemple: si message == "hello", réponse => af5597c29467a96523a70787c319f4db
 Dans un contrôleur "ExoController".
 
 Créer les routes exos/exo4_form et exos/exo4_process
-La route exo4_form ne devra être accessibles que pour les méthodes GET et HEAD
+La route exo4_form ne devra être accessible que pour les méthodes GET et HEAD
 Elle retournera un formulaire permettant de saisir un entier
 La soumission du formulaire, sur une route exos/exo4_process, accessible uniquement en GET, renverra:
 - une page d'erreur si la valeur fournie n'est pas un entier
@@ -59,20 +59,23 @@ Le serveur refusera de calculer le hash d'une chaîne vide ou de longueur infér
 
 *** Exo 6 ***
 Ajouter à l'application la possiblité d'enregistrer des aliments (ex: banane, beurre, etc.).
-Pour tout aliment, on pourra enregistrer le nombre (en grammes) de lipides, protides, protéines et calories, sur une base de 100 grammes de cet aliment.
+Pour tout aliment, on pourra enregistrer le nombre (en grammes) de lipides, glucides, protéines et calories, 
+sur une base de 100 grammes de cet aliment.
 Un aliment devra appartenir à une et une seule catégorie (exemples: Fruit, Viande, Poisson, etc.).
 Une catégorie appartiendra à plusieurs aliments.
 Prévoir des entités distinctes pour l'aliment et la catégorie.
-Prévoir une page permettant d'enregistrer un aliment en base et une page permettant de les lister (affichage par nom d'aliment, ordre alphabétique).
+Prévoir une page permettant d'enregistrer un aliment en base et une page permettant de les lister
+(affichage par nom d'aliment, ordre alphabétique).
 
 Facultatif.
-La page affichant la liste des aliments disposera d'un menu déroulant listant les catégories, la sélection d'une catégorie suivie d'un clic sur un
-bouton "Filtrer" devra produire une requête n'affichant que les aliments de la catégorie sélectionnée.
+La page affichant la liste des aliments disposera d'un menu déroulant listant les catégories, 
+la sélection d'une catégorie suivie d'un clic sur unbouton "Filtrer" devra produire une requête
+ n'affichant que les aliments de la catégorie sélectionnée.
 
 
 *** Exo 7 ***
 Créer un "Form Type" personnalisé "MonthType" qui affichera un menu de sélection avec les mois allant de janvier à décembre.
-Ajouter dans le DemoController une route exo7 retournant un template disposant d'un formulaire intégration le MonthType.
+Ajouter dans le DemoController une route exo7 retournant un template disposant d'un formulaire intégrant le MonthType.
 
 
 *** Exo 8 ***
@@ -82,7 +85,7 @@ Tester l'utilisation de ce service dans ExoController. Permettre sa configuratio
 
 
 *** Exo 9 ***
-Créer un filtre twig "hide" qui renvoie un remplace par des "x" les caractères de la chaîne passée en entrée
+Créer un filtre twig "hide" qui remplace par des "x" les caractères de la chaîne passée en entrée
 Créer un fitre hash qui renvoie, en fonction de l'argument qui lui est fourni, le hash md5 ou sha256 de la chaîne
 donnée en entrée. Par défaut, md5 sera utilisé.
 Ex: "toto"|hash => f71dbe52628a3f83a77ab494817525c6
@@ -92,7 +95,7 @@ Ex: "toto|hash('sha256') => 31f7a65e315586ac198bd798b6629ce4903d0899476d5741a9f3
 Créer un NewProverbEvent qui sera émis (dispatched) lorsqu'un proverbe sera enregistré en base
 Créer un souscripteur (subscriber) pour cet événement. 
 Le souscripteur réagira en écrivant sur disque (fichier /tmp/proverbs.log) la date de l'événement ainsi que l'id du proverbe.
-Astuce: vous pouvez utiliser le composant Filesystem (https://symfony.com/doc/current/components/filesystem.htm) pour écrire sur disque.
+Astuce: vous pouvez utiliser le composant Filesystem (https://symfony.com/doc/current/components/filesystem.html) pour écrire sur disque.
 
 *** Exo 11 ***
 Créer une commande personnalisée LastProverbsCommand affichant dans la console la liste des derniers

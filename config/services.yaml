@@ -27,6 +27,10 @@ services:
     App\Service\CalculatorService:
         arguments:
             $taux: 0.3
+    
+    App\Service\PasswordService:
+        arguments:
+            $len: 24
 
     App\EventListener\ExceptionListener:
         tags:

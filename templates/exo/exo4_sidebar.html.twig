@@ -1,0 +1,8 @@
+<div>
+    {% for i in 1..5 %}
+    {% set n = random(1,100) %}
+    <div>
+        <a href="{{ path('exo4_process', {num: n}) }}">{{ n }}</a>
+    </div>
+    {% endfor %}
+</div>

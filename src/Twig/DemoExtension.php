@@ -18,6 +18,8 @@ class DemoExtension extends AbstractExtension
             new TwigFilter('uppercase', [$this, 'doUpperCase']),
             new TwigFilter('array_len', [$this, 'doArrayLen']),
             new TwigFilter('wrapper', [$this, 'doWrap']),
+            new TwigFilter('hide', [$this, 'doHide']),
+            new TwigFilter('hash', [$this, 'doHash']),
         ];
     }
 
@@ -52,6 +54,24 @@ class DemoExtension extends AbstractExtension
     {
         $texte = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel mollis nibh, vitae mollis neque. Suspendisse varius massa non velit efficitur, eu eleifend nibh vestibulum. Curabitur sodales lorem risus, nec vulputate quam faucibus at. Nulla facilisi. Sed lacinia vestibulum lacinia. Etiam vitae lectus blandit, fringilla nibh vitae, dignissim ex. Cras vel molestie nisl. Maecenas id metus fermentum, tincidunt erat ut, iaculis metus. Ut a congue urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis sit amet vehicula nisl. Nunc interdum tortor id tincidunt tempor. Cras id consectetur metus. Nulla orci ex, luctus eget posuere ac, convallis a diam. Suspendisse eget risus lacus.";
         return substr($texte, 0, $limit);
+    }
+
+    public function doHide(string $value)
+    {
+        $out = '';
+        for ($i = 0; $i < strlen($value); $i++) {
+            $out .= 'x';
+        }
+        return $out;
+    }
+
+    public function doHash(string $value, string $hash_fn = 'md5')
+    {
+        if ($hash_fn == 'sha256') {
+            return hash('sha256', $value);
+        }
+
+        return md5($value);
     }
     
 }

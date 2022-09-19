@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h2>Exo 4</h2>
+
+    {% if error %}
+        <p>Calcul impossible</p>
+    {% else %}
+        <h3>Table de multiplication de <strong>{{ num }}</strong></h3>
+
+        {% for i in 1..10 %}
+        <div>{{ num }} * {{ i }} = {{ num * i }}</div>
+        {% endfor %}
+
+    {% endif %}
+    <p>
+        <a href="{{ path('exo4_form') }}">Saisir un autre nombre</a>
+    </p>
+    {% include 'exo/exo4_sidebar.html.twig' %}
+{% endblock %}
+
+

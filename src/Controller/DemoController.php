@@ -20,6 +20,9 @@ use \App\Form\ProverbType;
 use \App\Service\CalculatorService;
 use \App\Event\TestEvent;
 
+// exo 10
+use \App\Event\NewProverbEvent;
+
 class DemoController extends AbstractController
 {
     private $students = [
@@ -311,7 +314,7 @@ class DemoController extends AbstractController
     /**
      * @Route("/demo18", name="demo18")
      */
-    public function demo18(Request $req): Response
+    public function demo18(Request $req, EventDispatcherInterface $dispatcher): Response
     {
         $proverb = new Proverb();
 
@@ -348,7 +351,13 @@ class DemoController extends AbstractController
             $em->persist($proverb);
             $em->flush();
 
-            return $this->redirectToRoute("demo16");
+            // ------ exo 10 ------ 
+            $event = new NewProverbEvent($proverb);
+            $dispatcher->dispatch($event, NewProverbEvent::NAME);
+            //dd($event);
+            //---------------------
+
+            //return $this->redirectToRoute("demo16");
         }
         
 

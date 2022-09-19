@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% if list %}
+    <h2>Aliments</h2>
+    
+    <table class="table table-ordered table-striped">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Lipides</th>
+            <th>Glucides</th>
+            <th>Protéines</th>
+            <th>Calories</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for food in foods %}
+        <tr>
+            <td>{{ food.name }}</td>
+            <td>{{ food.fat }}</td>
+            <td>{{ food.carbs }}</td>
+            <td>{{ food.protein }}</td>
+            <td>{{ food.calory }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    <p>
+        <a href="{{ path('exo6_form') }}">Ajouter un aliment<a>
+    </p>
+    {% else %}
+    <h2>Enregistrement d'un aliment</h2>
+    <form method="post">
+        <div><input type="text" name="name" placeholder="Nom" /></div>
+        <div><input type="text" name="fat" placeholder="Lipides" /></div>
+        <div><input type="text" name="carbs" placeholder="Glucides" /></div>
+        <div><input type="text" name="protein" placeholder="Protéines" /></div>
+        <div><input type="text" name="calory" placeholder="Calories" /></div>
+        <div><input type="submit" value="Enregistrer" /></div>
+    </form>
+    <p>
+        <a href="{{ path('exo6_list') }}">Liste des aliments<a>
+    </p>
+    {% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% set film = 'La guerre des étoiles' %}
+
+{% block body %}
+
+<h2>Exo 9</h2>
+
+<div>Coucou => {{ 'coucou'|hide }}</div>
+<div>{{ film }} => {{ film|hide }}</div>
+
+<div>Coucou (md5) => {{ 'coucou'|hash }}</div>
+<div>Coucou (sha256) => {{ 'coucou'|hash('sha256') }}</div>
+<div>{{ film }} (sha256) => {{ film|hash('sha256') }}</div>
+
+
+{% endblock %}

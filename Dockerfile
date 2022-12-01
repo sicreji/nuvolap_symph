@@ -1,4 +1,4 @@
-FROM php:7.4.33-apache-buster
+FROM php:7.4.33-apache
 
 WORKDIR /app
 

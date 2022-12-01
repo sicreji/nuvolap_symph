@@ -21,6 +21,6 @@ RUN cd /var/www && \
     
 WORKDIR /var/www/
 
-CMD ["apache2-foreground"]
+ENTRYPOINT ["bash", "./docker/docker.sh"]
 
 EXPOSE 8000

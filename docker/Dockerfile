@@ -15,7 +15,7 @@ COPY . /var/www/
 COPY ./docker/apache.conf /etc/apache2/sites-available/000-default.conf
 
 RUN cd /var/www && \
-    composer install && \
+    composer install
 #    npm install --force && \
 #    npm run build
     

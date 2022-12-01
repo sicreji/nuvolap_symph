@@ -1,12 +1,26 @@
 FROM php:7.4.33-apache
 
-WORKDIR /app
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
-COPY . .
+RUN chmod +x /usr/local/bin/install-php-extensions && \
+    install-php-extensions pdo_pgsql intl
 
-RUN compose install
+RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
+   mv composer.phar /usr/local/bin/composer
 
-# symfony server:start --port=8000 -d
-CMD ['symphony'] ['server:start'] ['--port=8000']
+RUN apt update && apt install -yqq nodejs npm
 
-EXPOSE 8000
+COPY . /var/www/
+
+COPY ./docker/apache.conf /etc/apache2/sites-available/000-default.conf
+
+RUN cd /var/www && \
+    composer install && \
+    npm install --force && \
+    npm run build
+    
+WORKDIR /var/www/
+
+ENTRYPOINT ["bash", "./docker/docker.sh"]
+
+EXPOSE 80
